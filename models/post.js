@@ -19,10 +19,14 @@ const postSchema = new Schema({
         type: Number,
         default: 0
     },
-    timesstamp: {
+    timestamp: {
         type: Date,
         default: Date.now
-    }
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
   })
 
   module.exports = mongoose.model('Post', postSchema);

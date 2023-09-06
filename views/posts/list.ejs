@@ -2,12 +2,12 @@
 <div class="container">
     <h2>All Posts</h2>
 
-    <% post.forEach(post => { %>
+    <% posts.forEach(post => { %>
         <div class="post">
             <div class="post-header">
                 <strong><%= post.author.name %></strong>
                 <% if(user && user._id === post.author._id) { %>
-                    <form action="/posts/<%= post.id %>/delete" method="POST" class="delete-form">
+                    <form action="/posts/<%= post._id %>/delete" method="POST" class="delete-form">
                         <button type="submit">Delete</button>
                     </form>
                <% } %>
@@ -20,5 +20,5 @@
             </div>
             <% }) %>
         </div>
-        
+
 <%- include('../partials/footer.ejs') %>
