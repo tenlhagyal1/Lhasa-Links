@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <nav>
-      <% if (user) { %>
-        <a href="/logout">LOG OUT</a>
-      <% } else { %>
-        <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
-      <% } %>
-    </nav>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-  </body>
-</html>
+<%- include('./partials/header.ejs') %>
+<h1 class="title-home">Lhasa Links</h1>
+<p class="landing-text">Welcome to Lhasa Links!</p>
+<h2 class="motto">Link up with other Himalayan people across the world.</h2>
+<%- include('./partials/footer.ejs') %>
