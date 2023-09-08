@@ -7,7 +7,7 @@ const postSchema = new Schema({
         required: true
     },
     author: {
-        type: Schema.Types.String,
+        type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
@@ -15,10 +15,10 @@ const postSchema = new Schema({
         type: Number,
         default: 0
     },
-    sharesCount: {
-        type: Number,
-        default: 0
-    },
+    likedBy: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     timestamp: {
         type: Date,
         default: Date.now

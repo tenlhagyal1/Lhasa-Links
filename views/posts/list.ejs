@@ -6,19 +6,50 @@
         <div class="post">
             <div class="post-header">
                 <strong><%= post.author.name %></strong>
-                <% if(user && user._id === post.author._id) { %>
-                    <form action="/posts/<%= post._id %>/delete" method="POST" class="delete-form">
+                <% if(user && user._id.toString() === post.author._id.toString()) { %>
+                    <a href="/posts/<%= post._id %>/edit" class="edit-btn">Edit</a>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
                         <button type="submit">Delete</button>
                     </form>
                <% } %>
             </div>
             <p><%= post.content %></p>
 
-            <div class="post-actions">
-                <button class="like-btn">Like</button>
-                <button class="comment-btn">Comment</button>
+            <!-- Comments Section -->
+            <div class="comments">
+                <% if (post.comments && post.comments.length > 0) { %>
+                    <% post.comments.forEach(comment => { %>
+                        <div class="comment">
+                            <p><%= comment.content %></p>
+                            <!-- Optionally, add more details like comment author, etc. -->
+            
+                            <!-- Delete button for comment -->
+                            <% if (user && (user._id.toString() === comment.author._id.toString() || user._id.toString() === post.author._id.toString())) { %>
+                                <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="delete-comment-form">
+                                    <button type="submit">Delete Comment</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No comments for this post.</p>
+                <% } %>
             </div>
-            <% }) %>
+            <!-- End of Comments Section -->
+
+            <div class="post-actions">
+                <form action="/posts/<%= post._id %>/like" method="POST" class="like-form">
+                    <button type="submit" class="like-btn">Like (<%= post.likesCount %>)</button>
+                </form>
+                <button class="comment-btn">Comment</button>
+                <form action="/posts/<%= post._id %>/comment" method="POST">
+                    <textarea name="content" required></textarea>
+                    <button type="submit">Submit Comment</button>
+                </form>
+            </div>
         </div>
+    <% }); %>
+
+</div>
 
 <%- include('../partials/footer.ejs') %>

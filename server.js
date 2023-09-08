@@ -27,6 +27,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+  console.log(`Request Method: ${req.method}, Request Path: ${req.path}`);
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(session({
@@ -44,12 +50,22 @@ app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
 });
+//delete this
+app.use((req, res, next) => {
+  console.log(`Request Method: ${req.method}, Request Path: ${req.path}`);
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postRoutes);
+app.use('/posts', commentRoutes);
 app.use('/', likeRoutes);
-app.use('/', commentRoutes);
+
+app.use(function(err, req, res, next) {
+  console.log("Error encountered:", err.message);
+  next(err);  // Pass the error to the next middleware (in your case, it's the error renderer)
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

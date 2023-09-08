@@ -15,9 +15,10 @@
         <nav>
             <a href="/">HOME</a>
             <a href="/posts">ALL POSTS</a>
-            <a href="/posts/new">NEW POST</a>
 
+            
             <% if (user) { %>
+                <a href="/posts/new">NEW POST</a>
                 <span>
                     Tashi Delek <%= user.name %>!
                 </span>

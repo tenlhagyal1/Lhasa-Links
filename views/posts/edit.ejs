@@ -1,0 +1,17 @@
+<%- include('../partials/header.ejs') %>
+<div class="container">
+    <h2>Edit Post</h2>
+
+    <!-- Display any validation errors here -->
+
+    <form action="/posts/<%= post._id %>/edit" method="POST">
+        <!-- Display the current content of the post in an input field -->
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea name="content" id="content" rows="4" required><%= post.content %></textarea>
+        </div>
+
+        <button type="submit">Update Post</button>
+    </form>
+</div>
+<%- include('../partials/footer.ejs') %>
