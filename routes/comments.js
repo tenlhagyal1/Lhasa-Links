@@ -8,10 +8,10 @@ function isLoggedIn(req, res, next) {
 }
 
 // POST route to add a comment to a post
-router.post('/:postId/comment', isLoggedIn, commentsCtrl.addComment);
+router.post('/:postId', isLoggedIn, commentsCtrl.addComment);
 
 // DELETE route to remove a comment from a post
-router.delete(':/comment/commentId', isLoggedIn, commentsCtrl.deleteComment);
+router.delete('/:commentId', isLoggedIn, commentsCtrl.deleteComment);
 
 
 module.exports = router;

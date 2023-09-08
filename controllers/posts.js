@@ -13,6 +13,7 @@ module.exports = {
 // Function to create a post
 async function create(req, res) {
     try {
+        console.log('CREATE FUNCTION FIRING')
         // Parse the request body to get the "content" field
         const { content } = req.body;
 
@@ -32,9 +33,22 @@ async function create(req, res) {
 
 // Function to list all posts
 async function list(req, res) {
+    console.log('FIRING LIST')
     try {
-        const posts = await Post.find({}).populate('author');  
-        res.render('posts/list', { posts });
+        console.log('LIST FUNCTION FIRING')
+        const posts = await Post.find({}).populate({path: 'comments',
+        model: 'Comment',
+        populate: {
+            path: 'author',
+            model: 'User'
+        }
+    }).populate('author');
+    console.log('______________')
+    console.log('______________')
+    console.log (posts)
+    console.log('______________')
+    console.log('______________')
+        res.render('posts/list', { posts});
     } catch (err) {
         console.log(err);
         res.render('error', { err });
@@ -138,23 +152,24 @@ async function likePost(req, res) {
     }
 }
 
-async function list(req, res) {
-    try {
-        const posts = await Post.find({})
-            .populate('author')
-            .populate({
-                path: 'comments',
-                populate: {
-                    path: 'author',
-                    model: 'User'
-                }
-            })
-            .exec();
+// async function list(req, res) {
+//     try {
+//         console.log('LIST 2 FUNCTION FIRING')
+//         const posts = await Post.find({})
+//             .populate('author')
+//             .populate({
+//                 path: 'comments',
+//                 populate: {
+//                     path: 'author',
+//                     model: 'User'
+//                 }
+//             })
+//             .exec();
 
-        res.render('posts/list', { posts });
-    } catch (err) {
-        console.log(err);
-        res.render('error', { err });
-        console.error("Validation errors:", err.errors);
-    }
-}
+//         res.render('posts/list', { posts });
+//     } catch (err) {
+//         console.log(err);
+//         res.render('error', { err });
+//         console.error("Validation errors:", err.errors);
+//     }
+// }

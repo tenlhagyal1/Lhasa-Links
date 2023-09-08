@@ -13,22 +13,25 @@
                     </form>
                <% } %>
             </div>
-            <p><%= post.content %></p>
-
+            <p><%= post.content%></p>
             <!-- Comments Section -->
             <div class="comments">
                 <% if (post.comments && post.comments.length > 0) { %>
-                    <% post.comments.forEach(comment => { %>
+                    <% post.comments.forEach(c => { %>
                         <div class="comment">
-                            <p><%= comment.content %></p>
+                            <%= c.author.name %>
+                            <p><%= c.content %></p>
                             <!-- Optionally, add more details like comment author, etc. -->
             
                             <!-- Delete button for comment -->
-                            <% if (user && (user._id.toString() === comment.author._id.toString() || user._id.toString() === post.author._id.toString())) { %>
-                                <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="delete-comment-form">
+                            
+                            <% if (user?._id.equals(c.author._id)) { %>
+                                <% console.log('Firing') %>
+                                <form action="/comments/<%= c._id %>?_method=DELETE" method="POST" class="delete-comment-form">
                                     <button type="submit">Delete Comment</button>
                                 </form>
                             <% } %>
+                           
                         </div>
                     <% }) %>
                 <% } else { %>
@@ -36,17 +39,18 @@
                 <% } %>
             </div>
             <!-- End of Comments Section -->
-
+            <% if (user) { %>
             <div class="post-actions">
                 <form action="/posts/<%= post._id %>/like" method="POST" class="like-form">
                     <button type="submit" class="like-btn">Like (<%= post.likesCount %>)</button>
                 </form>
                 <button class="comment-btn">Comment</button>
-                <form action="/posts/<%= post._id %>/comment" method="POST">
+                <form action="/comments/<%= post._id %>" method="POST">
                     <textarea name="content" required></textarea>
                     <button type="submit">Submit Comment</button>
                 </form>
             </div>
+            <% } %>
         </div>
     <% }); %>
 

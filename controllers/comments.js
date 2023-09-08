@@ -8,6 +8,7 @@ module.exports = {
 
 async function addComment(req, res) {
     try {
+        console.log('ADD COMMENT FUNCTION FIRING')
         const postId = req.params.postId;
         const post = await Post.findById(postId);
 
@@ -20,7 +21,7 @@ async function addComment(req, res) {
             author: req.user._id,
             post: postId
         });
-
+        console.log(comment)
         post.comments.push(comment._id);
         await post.save();
 
@@ -34,7 +35,7 @@ async function addComment(req, res) {
 
 // Function to delete a comment
 async function deleteComment(req, res) {
-    console.log("Attempting to delete comment with ID:", req.params.commentId); 
+ req.params.commentId; 
     try {
         const comment = await Comment.findById(req.params.commentId);
 
@@ -51,7 +52,7 @@ async function deleteComment(req, res) {
             }
         }
 
-        res.redirect(`/posts/${comment.post}`);
+        res.redirect(`/posts`);
     } catch (err) {
         console.log(err);
         res.render('error', { message: err.message, error: err });

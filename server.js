@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postRoutes);
-app.use('/posts', commentRoutes);
+app.use('/comments', commentRoutes);
 app.use('/', likeRoutes);
 
 app.use(function(err, req, res, next) {
