@@ -7,10 +7,8 @@ function isLoggedIn(req, res, next) {
     res.redirect('/auth/google');
 }
 
-// POST route to add a like to a post
 router.post('/:id/like', isLoggedIn, likesCtrl.addLike);
 
-// DELETE route to remove a like from a post
 router.delete('/:id/unlike', isLoggedIn, likesCtrl.removeLike);
 
 module.exports = router;

@@ -1,18 +1,196 @@
+/* Reset and Body Styles */
 body {
+  margin: 0;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  background-color: #E0EAF4;
+  height: 100vh;
 }
 
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+/* Links and Transitions */
 a {
   color: #00B7FF;
+  text-decoration: none;
+  transition: color 0.3s;
 }
-.login {
+
+a:hover {
+  color: #2C3E63;
+}
+
+/* Navbar Styles */
+header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(44, 62, 99, 0.7);
+  padding: 15px 5%;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a, .login {
+  display: flex;
   align-items: center;
   height: 34px;
+  padding: 3px 8px;
+}
+
+nav a:hover {
+  background-color: #405A8C;
+  border-radius: 4px;
+}
+
+span {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#brand {
+  font-weight: bold;
+  font-size: 24px;
+  margin-right: auto;
+}
+
+/* Centered Content */
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.centered-content h1, .centered-content h2 {
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.centered-content .landing-text {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.centered-content .motto {
+  font-size: 1.5em;
+}
+
+/* Login Styles */
+.login {
+  justify-content: center;
 }
 
 .login img {
-  height: 30px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+/* Post Styles */
+.post {
+  background-color: #FFF;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 15px;
+  position: relative;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.edit-delete-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment {
+  padding: 5px 0;
+  border-top: 1px solid #eee;
+}
+
+.action-buttons, .comment-section {
+  display: block;
+  width: 100%;
+}
+
+.comments {
+  display: none;
+}
+
+/* Button Styles */
+.like-btn, .comment-btn, button {
+  background-color: #2C3E63;
+  color: #FFF;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 2px;
+  transition: background-color 0.3s;
+}
+
+.like-btn:hover, .comment-btn:hover, button:hover {
+  background-color: #405A8C;
+}
+
+/* Text Area */
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Content Creation Containers */
+.post-creation, .container {
+  background-color: #F7F9FC;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+.comment-form-container {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.buttons-container, .comment-form-container {
+  align-self: flex-start;
+  width: 50%;
+}
+
+/* Background Image */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 }

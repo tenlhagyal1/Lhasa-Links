@@ -1,59 +1,106 @@
 <%- include('../partials/header.ejs') %>
 <div class="container">
-    <h2>All Posts</h2>
+  <h2>All Posts</h2>
 
-    <% posts.forEach(post => { %>
-        <div class="post">
-            <div class="post-header">
-                <strong><%= post.author.name %></strong>
-                <% if(user && user._id.toString() === post.author._id.toString()) { %>
-                    <a href="/posts/<%= post._id %>/edit" class="edit-btn">Edit</a>
-                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
-                        <button type="submit">Delete</button>
-                    </form>
-               <% } %>
-            </div>
-            <p><%= post.content%></p>
-            <!-- Comments Section -->
-            <div class="comments">
-                <% if (post.comments && post.comments.length > 0) { %>
-                    <% post.comments.forEach(c => { %>
-                        <div class="comment">
-                            <%= c.author.name %>
-                            <p><%= c.content %></p>
-                            <!-- Optionally, add more details like comment author, etc. -->
-            
-                            <!-- Delete button for comment -->
-                            
-                            <% if (user?._id.equals(c.author._id)) { %>
-                                <% console.log('Firing') %>
-                                <form action="/comments/<%= c._id %>?_method=DELETE" method="POST" class="delete-comment-form">
-                                    <button type="submit">Delete Comment</button>
-                                </form>
-                            <% } %>
-                           
-                        </div>
-                    <% }) %>
-                <% } else { %>
-                    <p>No comments for this post.</p>
-                <% } %>
-            </div>
-            <!-- End of Comments Section -->
-            <% if (user) { %>
-            <div class="post-actions">
-                <form action="/posts/<%= post._id %>/like" method="POST" class="like-form">
-                    <button type="submit" class="like-btn">Like (<%= post.likesCount %>)</button>
-                </form>
-                <button class="comment-btn">Comment</button>
-                <form action="/comments/<%= post._id %>" method="POST">
-                    <textarea name="content" required></textarea>
-                    <button type="submit">Submit Comment</button>
-                </form>
-            </div>
-            <% } %>
+  <% posts.forEach(post => { %>
+  <div class="post">
+    <div class="post-header">
+      <strong><%= post.author.name %></strong><br />
+      <% if(user && user._id.toString() === post.author._id.toString()) { %>
+      <div class="edit-delete-container">
+        <a href="/posts/<%= post._id %>/edit" class="edit-btn">Edit</a>
+        <form
+          action="/posts/<%= post._id %>?_method=DELETE"
+          method="POST"
+          class="delete-form"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+    <div class="post-date">
+      Posted <%= new Date(post.createdAt).toLocaleString() %>
+    </div>
+    <hr />
+
+    <p><%= post.content%></p>
+    <% if (user) { %>
+    <div class="post-actions">
+      <div class="buttons-container">
+        <form
+          action="/posts/<%= post._id %>/like"
+          method="POST"
+          class="like-form"
+        >
+          <button type="submit" class="like-btn">
+            Like (<%= post.likesCount %>)
+          </button>
+        </form>
+        <button class="toggle-comments-btn">
+          Toggle Comments (<%= post.comments.length %>)
+        </button>
+      </div>
+
+      <div class="comments">
+        <% if (post.comments && post.comments.length > 0) { %> <%
+        post.comments.forEach(c => { %>
+        <div class="comment">
+          <%= c.author.name %>
+          <p><%= c.content %></p>
+
+          <% if (user?._id.equals(c.author._id)) { %> <% console.log('Firing')
+          %>
+          <form
+            action="/comments/<%= c._id %>?_method=DELETE"
+            method="POST"
+            class="delete-comment-form"
+          >
+            <button type="submit">Delete Comment</button>
+          </form>
+          <% } %>
         </div>
-    <% }); %>
+        <% }) %> <% } else { %>
+        <p>No comments for this post.</p>
+        <% } %>
+      </div>
+      <div class="comment-form-container">
+        <form
+          action="/comments/<%= post._id %>"
+          method="POST"
+          class="comment-form"
+        >
+          <textarea name="content" required></textarea>
+          <button type="submit">Submit Comment</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% }); %>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButtons = document.querySelectorAll(".toggle-comments-btn");
+
+      toggleButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const commentsSection = button
+            .closest(".post")
+            .querySelector(".comments");
+
+          if (
+            commentsSection.style.display === "none" ||
+            commentsSection.style.display === ""
+          ) {
+            commentsSection.style.display = "block";
+          } else {
+            commentsSection.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
 </div>
 
 <%- include('../partials/footer.ejs') %>

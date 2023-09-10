@@ -7,10 +7,8 @@ function isLoggedIn(req, res, next) {
     res.redirect('/auth/google');
 }
 
-// POST route to add a comment to a post
 router.post('/:postId', isLoggedIn, commentsCtrl.addComment);
 
-// DELETE route to remove a comment from a post
 router.delete('/:commentId', isLoggedIn, commentsCtrl.deleteComment);
 
 
