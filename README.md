@@ -14,14 +14,16 @@ Welcome to Lhasa Links, where Himalayan people from all over the world can conne
 ![Edit post](game-img/edit-post.png)
 ## Technologies Used
 
--EJS
--CSS
--Node.js
--Express
--Google OAuth
--MongoDB
+- EJS
+- CSS
+- Node.js
+- Express
+- Google OAuth
+- MongoDB
+- Heroku
 
 ## Getting Started
+https://lhasa-links-1876d24c11fe.herokuapp.com
 
 ## Stretch Goals
 
